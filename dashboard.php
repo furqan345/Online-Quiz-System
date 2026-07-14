@@ -1,67 +1,59 @@
 <?php
 require_once '../includes/auth_check.php';
-checkRole('admin');
+checkRole('superadmin');
 
-$admin_id = $_SESSION['user_id'];
+$total_admins = mysqli_fetch_assoc(mysqli_query($conn, "SELECT COUNT(*) as cnt FROM users WHERE role='admin'"))['cnt'];
+$total_students = mysqli_fetch_assoc(mysqli_query($conn, "SELECT COUNT(*) as cnt FROM users WHERE role='student'"))['cnt'];
+$total_quizzes = mysqli_fetch_assoc(mysqli_query($conn, "SELECT COUNT(*) as cnt FROM quizzes"))['cnt'];
+$total_attempts = mysqli_fetch_assoc(mysqli_query($conn, "SELECT COUNT(*) as cnt FROM student_quiz WHERE status='completed'"))['cnt'];
 
-// Stats
-$total_quizzes = mysqli_fetch_assoc(mysqli_query($conn, "SELECT COUNT(*) as cnt FROM quizzes WHERE teacher_id = $admin_id"))['cnt'];
-$total_students = mysqli_fetch_assoc(mysqli_query($conn, "SELECT COUNT(*) as cnt FROM users WHERE role = 'student'"))['cnt'];
-$total_questions = mysqli_fetch_assoc(mysqli_query($conn, "SELECT COUNT(*) as cnt FROM questions q INNER JOIN quizzes qz ON q.quiz_id = qz.quiz_id WHERE qz.teacher_id = $admin_id"))['cnt'];
-$total_attempts = mysqli_fetch_assoc(mysqli_query($conn, "SELECT COUNT(*) as cnt FROM student_quiz sq INNER JOIN quizzes qz ON sq.quiz_id = qz.quiz_id WHERE qz.teacher_id = $admin_id AND sq.status = 'completed'"))['cnt'];
-
-// Recent quizzes
-$recent_quizzes = mysqli_query($conn, "SELECT * FROM quizzes WHERE teacher_id = $admin_id ORDER BY created_date DESC LIMIT 5");
+$recent_admins = mysqli_query($conn, "SELECT * FROM users WHERE role='admin' ORDER BY created_at DESC LIMIT 5");
 ?>
 <?php include '../includes/header.php'; ?>
 
 <div class="page-header">
-    <h2>Admin Dashboard</h2>
-    <a href="create_quiz.php" class="btn btn-success">+ Create New Quiz</a>
+    <h2>Super Admin Dashboard</h2>
+    <a href="manage_admins.php" class="btn btn-success">+ Add Admin</a>
 </div>
 
 <div class="dashboard-cards">
     <div class="card">
-        <h3><?php echo $total_quizzes; ?></h3>
-        <p>My Quizzes</p>
-    </div>
-    <div class="card">
-        <h3><?php echo $total_questions; ?></h3>
-        <p>Total Questions</p>
+        <h3><?php echo $total_admins; ?></h3>
+        <p>Total Admins</p>
     </div>
     <div class="card">
         <h3><?php echo $total_students; ?></h3>
-        <p>Registered Students</p>
+        <p>Total Students</p>
+    </div>
+    <div class="card">
+        <h3><?php echo $total_quizzes; ?></h3>
+        <p>Total Quizzes (System-wide)</p>
     </div>
     <div class="card">
         <h3><?php echo $total_attempts; ?></h3>
-        <p>Quiz Attempts Completed</p>
+        <p>Total Quiz Attempts</p>
     </div>
 </div>
 
-<h3 style="margin-top:30px; color: var(--navy);">Recent Quizzes</h3>
+<h3 style="margin-top:30px; color: var(--navy);">Recently Added Admins</h3>
 <table>
     <tr>
-        <th>Title</th>
-        <th>Total Marks</th>
-        <th>Duration</th>
-        <th>Status</th>
-        <th>Created On</th>
-        <th>Action</th>
+        <th>Name</th>
+        <th>Email</th>
+        <th>Department</th>
+        <th>Joined</th>
     </tr>
-    <?php if (mysqli_num_rows($recent_quizzes) > 0): ?>
-        <?php while ($row = mysqli_fetch_assoc($recent_quizzes)): ?>
+    <?php if (mysqli_num_rows($recent_admins) > 0): ?>
+        <?php while ($row = mysqli_fetch_assoc($recent_admins)): ?>
         <tr>
-            <td><?php echo htmlspecialchars($row['title']); ?></td>
-            <td><?php echo $row['total_marks']; ?></td>
-            <td><?php echo $row['duration_minutes']; ?> min</td>
-            <td><?php echo ucfirst($row['status']); ?></td>
-            <td><?php echo date('d M Y', strtotime($row['created_date'])); ?></td>
-            <td><a href="manage_questions.php?quiz_id=<?php echo $row['quiz_id']; ?>" class="btn btn-primary">Manage</a></td>
+            <td><?php echo htmlspecialchars($row['name']); ?></td>
+            <td><?php echo htmlspecialchars($row['email']); ?></td>
+            <td><?php echo htmlspecialchars($row['department'] ?: '-'); ?></td>
+            <td><?php echo date('d M Y', strtotime($row['created_at'])); ?></td>
         </tr>
         <?php endwhile; ?>
     <?php else: ?>
-        <tr><td colspan="6">No quizzes created yet. Click "Create New Quiz" to get started.</td></tr>
+        <tr><td colspan="4">No admins added yet.</td></tr>
     <?php endif; ?>
 </table>
 
