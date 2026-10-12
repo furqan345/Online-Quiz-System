@@ -1,0 +1,476 @@
+/* ============================================================
+   Online Quiz and Result Management System - Main Stylesheet
+   Theme: Academic Navy + Teal
+   ============================================================ */
+
+:root {
+    --navy: #1E3A5F;
+    --navy-dark: #16293F;
+    --teal: #0EA5A0;
+    --teal-dark: #0B857F;
+    --bg: #F5F8FB;
+    --card: #FFFFFF;
+    --text: #1F2937;
+    --muted: #6B7280;
+    --border: #E3E8EF;
+    --danger: #E0554F;
+    --success: #1E8449;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: var(--bg);
+    color: var(--text);
+    font-family: 'Inter', 'Segoe UI', Arial, sans-serif;
+}
+
+h1, h2, h3, h4 {
+    font-family: 'Poppins', 'Segoe UI', Arial, sans-serif;
+}
+
+/* ---------- Header / Navigation ---------- */
+.main-header {
+    background-color: var(--navy);
+    color: #fff;
+    padding: 16px 32px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+}
+
+.main-header .logo {
+    font-family: 'Poppins', 'Segoe UI', Arial, sans-serif;
+    font-size: 20px;
+    font-weight: 600;
+    letter-spacing: 0.3px;
+}
+
+.main-header .logo::before {
+    content: "◆ ";
+    color: var(--teal);
+}
+
+.main-header nav a {
+    color: #dbe4ee;
+    text-decoration: none;
+    margin-left: 16px;
+    font-size: 14px;
+    padding: 7px 12px;
+    border-radius: 6px;
+    transition: background 0.2s, color 0.2s;
+}
+
+.main-header nav a:hover {
+    background-color: var(--teal);
+    color: #fff;
+}
+
+.welcome-text {
+    margin-left: 10px;
+    font-size: 14px;
+    color: #9fb3c8;
+}
+
+/* ---------- Container ---------- */
+.container {
+    max-width: 1100px;
+    margin: 30px auto;
+    padding: 0 20px;
+}
+
+/* ---------- Auth Layout (Login / Register) ---------- */
+.auth-wrapper {
+    min-height: calc(100vh - 66px);
+    display: flex;
+    align-items: stretch;
+    justify-content: center;
+    background: var(--bg);
+}
+
+.auth-shell {
+    display: flex;
+    width: 100%;
+    max-width: 960px;
+    margin: 40px auto;
+    background: var(--card);
+    border-radius: 14px;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(30, 58, 95, 0.12);
+    min-height: 560px;
+}
+
+/* Left brand panel with OMR-bubble-sheet inspired dot pattern */
+.auth-side {
+    flex: 1;
+    background: linear-gradient(160deg, var(--navy) 0%, var(--navy-dark) 100%);
+    color: #fff;
+    padding: 48px 40px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    position: relative;
+    overflow: hidden;
+}
+
+.auth-side .dot-grid {
+    position: absolute;
+    inset: 0;
+    background-image: radial-gradient(rgba(14, 165, 160, 0.35) 2px, transparent 2px);
+    background-size: 22px 22px;
+    opacity: 0.35;
+    mask-image: linear-gradient(180deg, transparent, #000 40%, #000 70%, transparent);
+}
+
+.auth-side .brand {
+    position: relative;
+    z-index: 1;
+}
+
+.auth-side .brand-mark {
+    font-family: 'Poppins', sans-serif;
+    font-size: 22px;
+    font-weight: 600;
+}
+
+.auth-side .brand-mark span {
+    color: var(--teal);
+}
+
+.auth-side h1 {
+    position: relative;
+    z-index: 1;
+    font-size: 28px;
+    line-height: 1.35;
+    margin-top: 30px;
+    font-weight: 600;
+}
+
+.auth-side p.tagline {
+    position: relative;
+    z-index: 1;
+    margin-top: 14px;
+    color: #b9c7d6;
+    font-size: 14px;
+    line-height: 1.6;
+    max-width: 320px;
+}
+
+.auth-side .stat-row {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    gap: 28px;
+    margin-top: auto;
+}
+
+.auth-side .stat-row div strong {
+    display: block;
+    font-family: 'Poppins', sans-serif;
+    font-size: 22px;
+    color: var(--teal);
+}
+
+.auth-side .stat-row div span {
+    font-size: 12px;
+    color: #9fb3c8;
+}
+
+/* Right form panel */
+.auth-form-panel {
+    flex: 1;
+    padding: 48px 44px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.auth-form-panel h2 {
+    color: var(--navy);
+    font-size: 24px;
+    font-weight: 600;
+}
+
+.auth-form-panel .sub {
+    color: var(--muted);
+    font-size: 14px;
+    margin-top: 6px;
+    margin-bottom: 22px;
+}
+
+/* Shared form styling (also used for create-quiz, add-question, etc.) */
+.form-box {
+    background: var(--card);
+    max-width: 420px;
+    margin: 40px auto;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(30,58,95,0.08);
+}
+
+.form-box h2 {
+    margin-bottom: 20px;
+    color: var(--navy);
+}
+
+label {
+    display: block;
+    margin-top: 14px;
+    margin-bottom: 5px;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--text);
+}
+
+input, select, textarea {
+    width: 100%;
+    padding: 11px 12px;
+    border: 1px solid var(--border);
+    border-radius: 7px;
+    font-size: 14px;
+    font-family: 'Inter', 'Segoe UI', Arial, sans-serif;
+    background: #fbfdff;
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+input:focus, select:focus, textarea:focus {
+    outline: none;
+    border-color: var(--teal);
+    box-shadow: 0 0 0 3px rgba(14, 165, 160, 0.15);
+    background: #fff;
+}
+
+button, .btn-submit {
+    width: 100%;
+    margin-top: 22px;
+    padding: 13px;
+    background-color: var(--teal);
+    color: #fff;
+    border: none;
+    border-radius: 7px;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+button:hover, .btn-submit:hover {
+    background-color: var(--teal-dark);
+}
+
+.form-box p, .auth-form-panel p.foot-link {
+    margin-top: 16px;
+    font-size: 13px;
+    text-align: center;
+    color: var(--muted);
+}
+
+.form-box p a, .auth-form-panel p.foot-link a,
+.foot-link a {
+    color: var(--teal-dark);
+    font-weight: 600;
+    text-decoration: none;
+}
+
+.form-box p a:hover, .foot-link a:hover {
+    text-decoration: underline;
+}
+
+/* ---------- Alerts ---------- */
+.alert-error {
+    background-color: #fdecea;
+    color: var(--danger);
+    padding: 11px 14px;
+    border-radius: 7px;
+    margin-bottom: 14px;
+    font-size: 14px;
+    border-left: 3px solid var(--danger);
+}
+
+.alert-success {
+    background-color: #eafaf1;
+    color: var(--success);
+    padding: 11px 14px;
+    border-radius: 7px;
+    margin-bottom: 14px;
+    font-size: 14px;
+    border-left: 3px solid var(--success);
+}
+
+/* ---------- Dashboard Cards ---------- */
+.dashboard-cards {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+    margin-top: 20px;
+}
+
+.card {
+    background: var(--card);
+    padding: 22px;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(30,58,95,0.08);
+    flex: 1;
+    min-width: 200px;
+    text-align: center;
+    border-top: 3px solid var(--teal);
+}
+
+.card h3 {
+    font-family: 'Poppins', sans-serif;
+    font-size: 30px;
+    color: var(--navy);
+}
+
+.card p {
+    margin-top: 8px;
+    color: var(--muted);
+    font-size: 14px;
+}
+
+/* ---------- Tables ---------- */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    background: var(--card);
+    margin-top: 20px;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 2px 10px rgba(30,58,95,0.08);
+}
+
+table th, table td {
+    padding: 13px 16px;
+    text-align: left;
+    border-bottom: 1px solid var(--border);
+    font-size: 14px;
+}
+
+table th {
+    background-color: var(--navy);
+    color: #fff;
+    font-weight: 600;
+    font-size: 13px;
+    text-transform: uppercase;
+    letter-spacing: 0.4px;
+}
+
+table tr:hover {
+    background-color: #f4f9fb;
+}
+
+/* ---------- Buttons ---------- */
+.btn {
+    display: inline-block;
+    padding: 8px 16px;
+    border-radius: 6px;
+    text-decoration: none;
+    font-size: 13px;
+    font-weight: 600;
+    border: none;
+    cursor: pointer;
+    transition: opacity 0.2s;
+}
+
+.btn:hover { opacity: 0.88; }
+
+.btn-primary { background-color: var(--navy); color: #fff; }
+.btn-success { background-color: var(--teal); color: #fff; }
+.btn-danger  { background-color: var(--danger); color: #fff; }
+.btn-edit    { background-color: #E7A93C; color: #fff; }
+
+.page-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.page-header h2 {
+    color: var(--navy);
+}
+
+/* ---------- Footer ---------- */
+.main-footer {
+    text-align: center;
+    padding: 18px;
+    color: var(--muted);
+    font-size: 13px;
+    margin-top: 40px;
+    border-top: 1px solid var(--border);
+}
+
+/* ---------- Quiz Attempt Page ---------- */
+.quiz-timer {
+    background-color: var(--navy);
+    color: #fff;
+    padding: 10px 22px;
+    border-radius: 7px;
+    font-size: 18px;
+    font-weight: 600;
+    text-align: center;
+    margin-bottom: 20px;
+    display: inline-block;
+    border: 2px solid var(--teal);
+}
+
+.question-box {
+    background: var(--card);
+    padding: 22px;
+    border-radius: 10px;
+    margin-bottom: 16px;
+    box-shadow: 0 2px 10px rgba(30,58,95,0.08);
+    border-left: 4px solid var(--teal);
+}
+
+.question-box h4 {
+    margin-bottom: 12px;
+    color: var(--navy);
+}
+
+.question-box label {
+    display: block;
+    padding: 10px 12px;
+    margin-bottom: 6px;
+    margin-top: 0;
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: 7px;
+    cursor: pointer;
+    font-weight: 400;
+    font-size: 14px;
+    transition: background 0.15s, border-color 0.15s;
+}
+
+.question-box label:hover {
+    background: #eaf6f5;
+    border-color: var(--teal);
+}
+
+/* ---------- Option Row Fix (Add/Edit Question) ---------- */
+/* Fixes a flexbox bug where input[type=text] with width:100% + flex:1
+   together caused the box to overflow and appear as a tiny disconnected block */
+.option-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-top: 8px;
+}
+
+.option-row input[type="radio"] {
+    width: auto;
+    flex-shrink: 0;
+    margin: 0;
+}
+
+.option-row input[type="text"] {
+    flex: 1 1 auto;
+    width: 100%;
+    min-width: 0; /* critical: allows the flex item to shrink instead of overflowing */
+}
